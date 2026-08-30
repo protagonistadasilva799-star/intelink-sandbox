@@ -24,7 +24,9 @@ class Memory:
     def search(self, query, limit=5):
         terms = set(re.findall(r"\w+", str(query).lower())); items = self.data.get("facts", []) + self.data.get("experiences", [])
         ranked = sorted(items, key=lambda x: len(terms & set(re.findall(r"\w+", x.get("text", "").lower()))), reverse=True)
-        return [x["text"] for x in ranked[:limit]]
+        if not terms:
+            return []
+        return [x["text"] for x in ranked if terms & set(re.findall(r"\w+", x.get("text", "").lower()))][:limit]
 
 class SafeTools:
     allowed = {"pwd","ls","dir","date","whoami","id","uname","echo","printf","cat","head","tail","wc","grep","find","python","python3","termux-battery-status","termux-clipboard-get","termux-toast","termux-vibrate"}
