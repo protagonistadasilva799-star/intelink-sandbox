@@ -1,55 +1,80 @@
-# Intelink Sandbox
+# Intelink Sandbox — computador na nuvem
 
-## O que é este projeto
+## O que é
 
-O **Intelink Sandbox** é uma adaptação do ecossistema Intelink para computador Linux na nuvem e ambientes sandbox. Ele reúne implementações de linguagem, runtime, IA, modelos, chat e ferramentas auxiliares, mantendo os repositórios destinados ao Termux/Android separados.
+O **Intelink Sandbox** é a versão do ecossistema Intelink preparada para execução em um **computador Linux na nuvem ou ambiente sandbox**. Seu objetivo é permitir que os componentes Intelink sejam baixados, estudados, testados e executados fora do Android/Termux, com isolamento dos arquivos e dos processos locais.
+
+A versão Termux/Android permanece separada no repositório [intelink-language](https://github.com/protagonistadasilva799-star/intelink-language). A diferença entre os repositórios é o ambiente de execução e a forma de preparação; os componentes, os créditos e os termos de uso continuam relacionados ao mesmo ecossistema Intelink.
 
 **Criador:** Samuel Artulino.
 
-Esta pasta é uma cópia isolada dos componentes implementados, muitos deles usando Python como tecnologia hospedeira. Python é a tecnologia de implementação; os formatos, comandos e linguagens Intelink devem ser conferidos nos respectivos executores e parsers. Os repositórios Termux originais permanecem separados e não são substituídos por esta adaptação.
+## O que há nesta versão
 
-## O que foi encontrado
+A pasta `src/` reúne as implementações disponíveis. A pasta `bin/` contém lançadores que configuram automaticamente os caminhos necessários para os módulos se encontrarem no Linux. A pasta `data/` contém datasets e modelos locais incluídos no projeto. A pasta `terms/` preserva os termos de uso dos componentes de origem.
 
-Não foi encontrado um `manifest.json`, `package.json` de extensão de navegador, `.crx` ou `.zip` de WebExtension. O material disponível é uma suíte de ferramentas Python originalmente direcionada ao Termux/Android, com estes componentes: Intelink AI, BotLang, Bridge, Chat, Language Runtime, Model Language, Model Zoo, Runtime Manager e Stable.
+Os componentes presentes incluem Intelink AI, BotLang, Bridge, Chat, Language Runtime, Model Language, Model Zoo, Runtime Manager e Stable. Python é a tecnologia hospedeira utilizada em parte da implementação atual; isso não transforma automaticamente a linguagem, os formatos ou os comandos Intelink em Python.
 
-A adaptação mantém os fontes em `src/`, reúne o dataset e os modelos locais em `data/` e cria lançadores em `bin/` que configuram `PYTHONPATH` automaticamente para que os módulos relacionados consigam importar uns aos outros no Linux do sandbox.
+## Como baixar
 
-## Execução
+```bash
+git clone --depth=1 https://github.com/protagonistadasilva799-star/intelink-sandbox.git
+cd intelink-sandbox
+```
 
-A partir desta pasta:
+## Como preparar
 
 ```bash
 export PATH="$PWD/bin:$PATH"
 export HOME="$PWD/home"
 mkdir -p "$HOME"
-
-intelink doctor
-intelink lista
-intelink-zoo --help
-intelink-ai --gerar "teste local no sandbox"
-intelink-botlang --ajuda
 ```
 
-Os demais lançadores são `intelink-bridge`, `intelink-chat`, `intelink-language`, `intelinkc` e `intelink-stable`.
+A preparação usa diretórios locais dentro do sandbox e não exige a instalação de pacotes específicos do Termux.
 
-## Dependências e limites
-
-Os componentes testados usam Python e biblioteca padrão. A verificação de sintaxe foi concluída sem erros. O comando `intelink doctor` confirma que o ambiente sandbox não é Termux e que não há Ollama, `llama.cpp` ou modelos GGUF registrados. Portanto, os fluxos de geração local e classificação funcionam, enquanto os fluxos que exigem um modelo GGUF, Ollama ou executores nativos precisam de configuração adicional.
-
-O comando `intelink-ai --gerar` foi executado com sucesso no sandbox. O conteúdo gerado é um resultado do modelo local incluído no projeto e não uma resposta de um LLM externo.
-
-## Teste de sintaxe
+## Primeiros testes
 
 ```bash
 python3 -m compileall -q src
+intelink doctor
+intelink lista
+intelink-zoo --help
+intelink-botlang --ajuda
 ```
 
-## Documentação técnica
+Outros lançadores disponíveis são `intelink-ai`, `intelink-bridge`, `intelink-chat`, `intelink-language`, `intelinkc` e `intelink-stable`.
 
-Os READMEs dos componentes e os termos de uso foram preservados na pasta `terms/`. Consulte a documentação de cada componente antes de programar, redistribuir ou publicar derivados.
+## Programação e execução
 
-## Origem
+Cada componente deve ser programado conforme a sintaxe e as interfaces implementadas no seu código. Para experimentar a IA local incluída:
 
-A cópia foi montada a partir dos repositórios públicos acessíveis na conta GitHub conectada, incluindo `intelink-ai`, `intelink-botlang`, `intelink-bridge`, `intelink-chat`, `intelink-language`, `intelink-model-language`, `intelink-model-zoo`, `intelink-runtime`, `intelink-stable` e `intelink-launch-kit`.
+```bash
+intelink-ai --gerar "teste local no sandbox"
+```
 
-Consulte os respectivos `README.md` e `TERMS.md` nos repositórios originais antes de redistribuir ou publicar o material. Os avisos de crédito e as condições de uso originais foram preservados conceitualmente; esta adaptação não concede direitos adicionais.
+Para trabalhar com classificadores do Model Zoo:
+
+```bash
+intelink-zoo treinar --saida "$HOME/.intelink_zoo" --epocas 80
+intelink-zoo prever "$HOME/.intelink_zoo/intelink_intent_pesos.py" "criar um programa"
+```
+
+Os exemplos acima exercitam componentes locais. Não presumem que exista um modelo externo ou um servidor de IA disponível.
+
+## Dependências e limitações
+
+O sandbox não é Termux. Comandos como `termux-toast`, `termux-battery-status` e outras integrações Android podem não existir. O diagnóstico também pode informar que Ollama, `llama.cpp` ou modelos GGUF não estão instalados. Recursos que dependem deles só funcionarão depois de uma configuração compatível e revisada.
+
+Um pacote `.deb` criado para Termux/Android não deve ser instalado diretamente neste ambiente sem inspeção. Prefira os fontes e os lançadores deste repositório. Não coloque tokens, senhas, chaves ou dados pessoais em arquivos do projeto.
+
+## Separação dos ambientes
+
+| Ambiente | Repositório | Uso |
+|---|---|---|
+| Computador Linux na nuvem ou sandbox | `intelink-sandbox` | Testes isolados, execução local e adaptação dos componentes |
+| Termux/Android | `intelink-language` e demais repositórios Termux | Execução no celular, integração com comandos e recursos Termux |
+
+## Termos e autoria
+
+Os termos de uso dos componentes estão preservados em `terms/`. Leia-os antes de usar, modificar, redistribuir ou publicar derivados. Publicações autorizadas devem preservar a atribuição exigida pelos projetos de origem.
+
+**Criador:** Samuel Artulino.
