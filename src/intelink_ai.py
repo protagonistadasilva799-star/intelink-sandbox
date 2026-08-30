@@ -9,6 +9,7 @@ from pathlib import Path
 from intelink_modelo_real import AttentionLanguageModel, CodeMind, Mission, ROOT, read_corpus, weight_path
 
 MODEL_NAME = "Interlink AI"
+AUTHOR = "Samuel"
 
 class IntelinkAI:
     def __init__(self):
@@ -34,7 +35,7 @@ class IntelinkAI:
         seed=(context+"\n"+str(prompt)).strip()[-500:]
         text=self.model.generate(seed,length=length)
         self.learn(text,"geracao")
-        return {"texto":text,"modelo":MODEL_NAME,"contexto_recuperado":bool(context)}
+        return {"texto":text,"modelo":MODEL_NAME,"desenvolvido_por":AUTHOR,"contexto_recuperado":bool(context)}
     def analyze(self, text):
         s=str(text); words=re.findall(r"\w+",s,re.UNICODE); lines=s.splitlines()
         result={"caracteres":len(s),"palavras":len(words),"linhas":len(lines) or 1,"codigo_python":("def " in s or "import " in s),"conceitos":sorted(set(words),key=words.index)[:30]}
@@ -58,6 +59,6 @@ def main():
     if len(sys.argv)>=3 and sys.argv[1]=="--missao": print(json.dumps(ai.mission(" ".join(sys.argv[2:])),ensure_ascii=False,indent=2)); return
     if len(sys.argv)>=3 and sys.argv[1]=="--gerar": print(json.dumps(ai.generate(" ".join(sys.argv[2:])),ensure_ascii=False,indent=2)); return
     if len(sys.argv)>=3 and sys.argv[1]=="--aprender": print(json.dumps(ai.learn(" ".join(sys.argv[2:])),ensure_ascii=False,indent=2)); return
-    print("Intelink AI | --treinar CORPUS PASSOS | --gerar TEXTO | --criar OBJETIVO | --analisar TEXTO | --missao OBJETIVO | --aprender FATO")
+    print(f"{MODEL_NAME} — desenvolvido por {AUTHOR} | --treinar CORPUS PASSOS | --gerar TEXTO | --criar OBJETIVO | --analisar TEXTO | --missao OBJETIVO | --aprender FATO")
 
 if __name__=="__main__": main()

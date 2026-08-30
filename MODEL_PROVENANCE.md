@@ -6,9 +6,9 @@ A identidade operacional desta versão é **Interlink AI**. O nome anterior usad
 
 ## Origem técnica
 
-O checkpoint experimental foi fornecido pelo criador do ecossistema Interlink e é tratado como uma criação experimental própria para fins de adaptação e pesquisa. De acordo com a explicação do criador, ele foi treinado com dados relacionados a um projeto externo e não é o modelo oficial nem o modelo-base oficial desse projeto.
+O checkpoint experimental foi criado e fornecido por **Samuel**, criador do ecossistema Interlink, para fins de adaptação e pesquisa. Esta versão não deve afirmar que foi desenvolvida por outra empresa ou projeto: a atribuição pública correta é **Interlink AI — desenvolvido por Samuel**.
 
-Esta versão não deve afirmar que foi criada pelo projeto externo. Ao mesmo tempo, a documentação preserva a informação de que os dados de treinamento tiveram essa relação, porque renomear um modelo não apaga a procedência dos dados nem eventuais obrigações aplicáveis.
+O checkpoint teve histórico de treinamento com dados relacionados a um projeto externo. Essa informação é mantida apenas como registro técnico de proveniência e não como identidade, autoria ou desenvolvedor do modelo. Renomear o modelo não deve apagar obrigações aplicáveis aos dados, mas também não deve substituir a autoria real do trabalho.
 
 ## Plano de adaptação
 
@@ -18,4 +18,4 @@ A avaliação deve medir separadamente: geração de texto, recuperação de có
 
 ## Limitações
 
-Um checkpoint pequeno não se torna um modelo geral apenas por receber um nome novo. O Interlink AI continuará sendo experimental até que existam testes reproduzíveis, métricas de validação e documentação suficiente para sustentar qualquer afirmação de capacidade.
+Um checkpoint pequeno não se torna um modelo geral apenas por receber um nome novo. O Interlink AI continuará sendo experimental até que existam testes reproduzíveis, métricas de validação e documentação suficiente para sustentar qualquer afirmação de capacidade. A identidade pública permanece: **Interlink AI — desenvolvido por Samuel**.

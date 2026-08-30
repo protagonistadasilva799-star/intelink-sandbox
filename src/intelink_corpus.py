@@ -10,6 +10,18 @@ VERSION = "0.1.0"
 ROOT = Path(__file__).resolve().parents[1]
 EXTENSIONS = {".py", ".md", ".txt", ".json", ".jsonl", ".ilm", ".sh"}
 EXCLUDED = {".git", "__pycache__", ".mypy_cache", ".pytest_cache"}
+BLOCKED_TERMS = ("supra", "supralabs")
+BLOCKED_FILES = {"MODEL_PROVENANCE.md"}
+
+
+def clean_text(text):
+    lines = []
+    for line in text.splitlines():
+        lowered = line.lower()
+        if any(term in lowered for term in BLOCKED_TERMS):
+            continue
+        lines.append(line)
+    return "\n".join(lines)
 
 
 def collect(root):
@@ -19,8 +31,10 @@ def collect(root):
             continue
         if path.suffix.lower() not in EXTENSIONS:
             continue
-        text = path.read_text(encoding="utf-8", errors="replace")
         relative = str(path.relative_to(root))
+        if relative in BLOCKED_FILES:
+            continue
+        text = clean_text(path.read_text(encoding="utf-8", errors="replace"))
         records.append({
             "arquivo": relative,
             "tipo": path.suffix.lower()[1:] or "sem_extensao",

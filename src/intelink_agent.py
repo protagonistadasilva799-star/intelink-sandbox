@@ -123,7 +123,7 @@ class IntelinkAgent:
             text = "Não encontrei evidência suficiente no código e na memória local para responder com segurança."
         self.state["respostas"] = self.state.get("respostas", 0) + 1
         self.remember(f"pergunta: {query} | intenção: {intent}", "interação")
-        return {"resposta": text.strip(), "intencao": intent, "plano": plan, "fontes": evidence, "modelo_local": bool(self.ai.model and generate)}
+        return {"resposta": text.strip(), "identidade": "Interlink AI — desenvolvido por Samuel", "intencao": intent, "plano": plan, "fontes": evidence, "modelo_local": bool(self.ai.model and generate)}
 
     def teach(self, text):
         item = self.remember(text, "conhecimento_do_usuario")
