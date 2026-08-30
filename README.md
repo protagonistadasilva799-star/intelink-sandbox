@@ -90,3 +90,16 @@ intelink-check --json
 ```
 
 Dependências opcionais ausentes aparecem como `opcional`; isso não impede o diagnóstico do runtime básico. O relatório retorna código de saída zero quando os requisitos obrigatórios estão presentes.
+
+## Intelink Agent
+
+O `intelink-agent` é um agente local construído sobre os próprios componentes Intelink. Ele indexa os arquivos do projeto, recupera trechos relevantes, classifica a intenção, cria um plano explícito, usa a memória persistente e pode chamar o modelo local Intelink quando houver pesos disponíveis. Ele não é um LLM geral e não afirma ter conhecimento fora das fontes indexadas e da memória local.
+
+```sh
+export PATH="$PWD/bin:$PATH"
+intelink-agent --perguntar "como funciona a memória do runtime" --json
+intelink-agent --perguntar "quais componentes existem no sandbox" --sem-geracao --json
+intelink-agent --ensinar "O projeto usa Python e componentes locais." --json
+```
+
+A opção `--sem-geracao` produz somente evidências recuperadas. Isso permite testar a memória e a recuperação mesmo quando não há um modelo treinado ou um backend externo instalado.
