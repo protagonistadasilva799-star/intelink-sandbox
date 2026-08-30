@@ -43,8 +43,9 @@ def main():
     log = model.train(corpus, steps=max(1, args.passos), batch=4, lr=.025, checkpoint=max(1, args.passos // 4))
     out.mkdir(parents=True, exist_ok=True)
     generated_weights = weight_path()
-    if generated_weights.exists():
-        shutil.copy2(generated_weights, out / "intelink_pesos_treinados.py")
+    target_weights = out / "intelink_pesos_treinados.py"
+    if generated_weights.exists() and generated_weights.resolve() != target_weights.resolve():
+        shutil.copy2(generated_weights, target_weights)
     metrics = {"modelo": "Interlink AI", "arquitetura": "IntelinkAttention", "versao": VERSION, "origem": "somente código Intelink", "raiz": str(root), "arquivos": files, "caracteres": len(corpus), "vocabulario": len(model.chars), "passos": args.passos, "seed": args.seed, "historico": log}
     (out / "intelink_treino_metricas.json").write_text(json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(metrics, ensure_ascii=False, indent=2))

@@ -130,11 +130,24 @@ class IntelinkAgent:
         self.ai.learn(text, "conhecimento_do_usuario")
         return {"registrado": True, "item": item, "total_memorias": len(self.state["memoria"])}
 
+    def create_code(self, objective):
+        plan = self.plan(objective, "criar")
+        result = self.ai.create(objective)
+        code = result.get("codigo", "")
+        try:
+            compile(code, "<interlink-generated>", "exec")
+            syntax = "PASS"
+        except SyntaxError as exc:
+            syntax = f"FAIL: linha {exc.lineno}: {exc.msg}"
+        self.remember(f"código analisado para: {objective} | sintaxe: {syntax}", "programação")
+        return {"identidade": "Interlink AI — desenvolvido por Samuel", "objetivo": objective, "plano_resumido": plan["passos"], "codigo": code, "validacao_sintatica": syntax, "executado": False}
+
 
 def main():
     ap = argparse.ArgumentParser(prog="intelink-agent", description="Agente local baseado no ecossistema Intelink")
     ap.add_argument("--perguntar", help="faz uma pergunta sobre o código Intelink")
     ap.add_argument("--ensinar", help="registra um conhecimento na memória local")
+    ap.add_argument("--criar", help="cria código e valida a sintaxe sem executá-lo")
     ap.add_argument("--sem-geracao", action="store_true", help="retorna somente evidências recuperadas")
     ap.add_argument("--json", action="store_true", help="imprime JSON")
     ap.add_argument("--versao", "-v", action="store_true")
@@ -145,6 +158,8 @@ def main():
     agent = IntelinkAgent()
     if args.ensinar:
         result = agent.teach(args.ensinar)
+    elif args.criar:
+        result = agent.create_code(args.criar)
     elif args.perguntar:
         result = agent.answer(args.perguntar, generate=not args.sem_geracao)
     else:

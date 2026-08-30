@@ -46,7 +46,27 @@ def collect(root):
 
 
 def build_text(records):
-    return "\n\n".join(f"### INTELINK/{r['arquivo']}\n{r['texto']}" for r in records)
+    blocks = []
+    for record in records:
+        text = record["texto"]
+        if record["tipo"] == "jsonl":
+            dialogue = []
+            for line in text.splitlines():
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if "mensagem" in row and "resposta" in row:
+                    dialogue.append(
+                        "### DIALOGO\n"
+                        "[USUARIO]\n" + str(row["mensagem"]) +
+                        "\n[ASSISTENTE]\n" + str(row["resposta"]) + "\n[FIM]"
+                    )
+            if dialogue:
+                blocks.append("### INTELINK/" + record["arquivo"] + "\n" + "\n".join(dialogue))
+                continue
+        blocks.append(f"### INTELINK/{record['arquivo']}\n{text}")
+    return "\n\n".join(blocks)
 
 
 def main():
