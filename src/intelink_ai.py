@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Intelink AI: núcleo principal de IA, separado dos bots.
-Usa o modelo neural local treinado pela Intelink quando os pesos existem.
-Sem API e sem dependências externas.
+"""Interlink AI: núcleo local de IA do ecossistema criado pelo usuário.
+Usa modelos treinados localmente e mantém compatibilidade com os comandos Intelink.
+Sem API externa obrigatória e sem dependências externas.
 """
 import ast, json, re, sys, time
 from pathlib import Path
 from intelink_modelo_real import AttentionLanguageModel, CodeMind, Mission, ROOT, read_corpus, weight_path
+
+MODEL_NAME = "Interlink AI"
 
 class IntelinkAI:
     def __init__(self):
@@ -32,7 +34,7 @@ class IntelinkAI:
         seed=(context+"\n"+str(prompt)).strip()[-500:]
         text=self.model.generate(seed,length=length)
         self.learn(text,"geracao")
-        return {"texto":text,"modelo":"Intelink local","contexto_recuperado":bool(context)}
+        return {"texto":text,"modelo":MODEL_NAME,"contexto_recuperado":bool(context)}
     def analyze(self, text):
         s=str(text); words=re.findall(r"\w+",s,re.UNICODE); lines=s.splitlines()
         result={"caracteres":len(s),"palavras":len(words),"linhas":len(lines) or 1,"codigo_python":("def " in s or "import " in s),"conceitos":sorted(set(words),key=words.index)[:30]}
