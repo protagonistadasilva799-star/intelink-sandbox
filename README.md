@@ -1,7 +1,12 @@
 # Intelink Sandbox
-# Intelink — versão para sandbox
 
-Esta pasta é uma cópia isolada dos componentes Python encontrados nos repositórios GitHub acessíveis à conta `protagonistadasilva799-star`. Os repositórios originais não foram modificados.
+## O que é este projeto
+
+O **Intelink Sandbox** é uma adaptação do ecossistema Intelink para computador Linux na nuvem e ambientes sandbox. Ele reúne implementações de linguagem, runtime, IA, modelos, chat e ferramentas auxiliares, mantendo os repositórios destinados ao Termux/Android separados.
+
+**Criador:** Samuel Artulino.
+
+Esta pasta é uma cópia isolada dos componentes implementados, muitos deles usando Python como tecnologia hospedeira. Python é a tecnologia de implementação; os formatos, comandos e linguagens Intelink devem ser conferidos nos respectivos executores e parsers. Os repositórios Termux originais permanecem separados e não são substituídos por esta adaptação.
 
 ## O que foi encontrado
 
@@ -38,6 +43,10 @@ O comando `intelink-ai --gerar` foi executado com sucesso no sandbox. O conteúd
 ```bash
 python3 -m compileall -q src
 ```
+
+## Documentação técnica
+
+Os READMEs dos componentes e os termos de uso foram preservados na pasta `terms/`. Consulte a documentação de cada componente antes de programar, redistribuir ou publicar derivados.
 
 ## Origem
 
