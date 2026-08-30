@@ -1,0 +1,4 @@
+{"model":"intent","text":"criar um script Python","label":"criar"}
+{"model":"guard","text":"comando destrutivo no diretório raiz","label":"bloqueado"}
+{"model":"topic","text":"instalar pacote no Termux","label":"termux"}
+{"model":"planner","text":"rodar verificações","label":"testar"}

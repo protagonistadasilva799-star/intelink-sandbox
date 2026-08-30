@@ -1,0 +1,8 @@
+Intelink sandbox adaptation test report
+Generated: 2026-08-30
+Source syntax: PASS (python3 -m compileall -q src)
+intelink doctor: PASS; Termux=false; Ollama=false; llama_cli=false; modelos=0
+intelink lista: PASS ([])
+intelink-zoo --help: PASS
+intelink-ai --gerar: PASS
+intelink-botlang --ajuda: PASS

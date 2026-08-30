@@ -1,0 +1,14 @@
+# Intelink Model Language — modelo generativo experimental
+# Este manifesto é compatível com o exportador oficial de modelos causais.
+
+modelo IntelinkTextMini {
+  arquitetura llama
+  dimensao 256
+  camadas 4
+  cabecas 4
+  contexto 512
+  vocabulario 4096
+}
+dados "datasets/text_mini"
+treinar 1000 taxa 0.0003
+exportar gguf "intelink-text-mini.gguf" Q4_K_M

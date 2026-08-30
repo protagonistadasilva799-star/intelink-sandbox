@@ -1,0 +1,47 @@
+# Intelink Model Language — catálogo Model Zoo
+# Definições leves para componentes classificadores do Intelink Model Zoo.
+# O export GGUF não é usado nestes modelos especializados.
+
+modelo IntelinkIntent {
+  arquitetura linear-hash
+  dimensao 256
+  camadas 1
+  cabecas 1
+  contexto 256
+  vocabulario 4096
+}
+dados "datasets/intent.jsonl"
+treinar 80 taxa 0.12
+
+modelo IntelinkGuard {
+  arquitetura linear-hash
+  dimensao 256
+  camadas 1
+  cabecas 1
+  contexto 256
+  vocabulario 4096
+}
+dados "datasets/guard.jsonl"
+treinar 80 taxa 0.12
+
+modelo IntelinkTopic {
+  arquitetura linear-hash
+  dimensao 256
+  camadas 1
+  cabecas 1
+  contexto 256
+  vocabulario 4096
+}
+dados "datasets/topic.jsonl"
+treinar 80 taxa 0.12
+
+modelo IntelinkPlanner {
+  arquitetura linear-hash
+  dimensao 256
+  camadas 1
+  cabecas 1
+  contexto 256
+  vocabulario 4096
+}
+dados "datasets/planner.jsonl"
+treinar 80 taxa 0.12
