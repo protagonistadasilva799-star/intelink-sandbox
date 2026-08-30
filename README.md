@@ -78,3 +78,15 @@ Um pacote `.deb` criado para Termux/Android não deve ser instalado diretamente 
 Os termos de uso dos componentes estão preservados em `terms/`. Leia-os antes de usar, modificar, redistribuir ou publicar derivados. Publicações autorizadas devem preservar a atribuição exigida pelos projetos de origem.
 
 **Criador:** Samuel Artulino.
+
+## Intelink Check
+
+O `intelink-check` é uma ferramenta de diagnóstico local. Ela verifica a presença dos arquivos essenciais, a versão do Python e a disponibilidade opcional de Ollama e `llama-cli`. A ferramenta não instala pacotes, não acessa a rede e não executa comandos externos.
+
+```sh
+export PATH="$PWD/bin:$PATH"
+intelink-check
+intelink-check --json
+```
+
+Dependências opcionais ausentes aparecem como `opcional`; isso não impede o diagnóstico do runtime básico. O relatório retorna código de saída zero quando os requisitos obrigatórios estão presentes.
